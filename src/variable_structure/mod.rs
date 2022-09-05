@@ -5,4 +5,5 @@ pub mod vconst;
 pub mod vnumber;
 pub mod vslice;
 pub mod vstring;
+pub mod vstruct;
 pub mod vtuple;

@@ -1,9 +1,12 @@
+
 /// slice 允许我们引用一个集合中的一段连续的元素序列。而不是一个集合的全部元素。
 /// slice 是一类引用，所以它没有所有权
 
 pub fn slice_reference() {
-    only_one_reference();
 
+    println!("------------------start test of slice-----------------");
+    // 引用
+    only_one_reference();
     str_or_string_call_slice();
 }
 
@@ -25,7 +28,8 @@ fn str_or_string_call_slice() {
 }
 
 // 创建一个函数找到一组字符串的首个单词
-fn first_word(s: &String) -> &str {
+// &String 只能接受一个字符串的引用作为参数
+fn first_word(s: &String) -> &str  {
     // 转化为字节数组
     let bytes = s.as_bytes();
     for (i, &item) in bytes.iter().enumerate() {
