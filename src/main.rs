@@ -14,6 +14,7 @@ fn main() {
     variable_structure::vtuple::tuple_type();
     variable_structure::vslice::slice_reference();
     variable_structure::vstruct::struct_variable();
+    variable_structure::venum::test_enum();
     ownership_structure::ownership::test_ownship();
     function_structure::func_use::func_detail();
 }
