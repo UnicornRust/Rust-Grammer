@@ -1,6 +1,12 @@
 pub mod branch_structure;
+pub mod closures;
 pub mod comment_structure;
 pub mod function_structure;
+pub mod generic_structure;
+pub mod handle_error;
+pub mod io_structure;
+pub mod iterator;
 pub mod loop_structure;
 pub mod ownership_structure;
 pub mod variable_structure;
+pub mod command;

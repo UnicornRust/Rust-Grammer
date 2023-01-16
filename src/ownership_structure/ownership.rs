@@ -1,6 +1,2 @@
-
 // test for ownership
-pub fn test_ownship() {
-
-
-}
+pub fn test_ownship() {}

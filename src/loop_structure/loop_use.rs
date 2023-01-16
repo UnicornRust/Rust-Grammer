@@ -1,4 +1,5 @@
 pub fn loop_grammer() {
+    println!("-------------------test of loop-----------------");
     loop_loop();
     loop_for();
     loop_while();

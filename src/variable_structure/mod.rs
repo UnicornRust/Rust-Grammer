@@ -8,3 +8,5 @@ pub mod vslice;
 pub mod vstring;
 pub mod vstruct;
 pub mod vtuple;
+pub mod vvec;
+pub mod vhashmap;

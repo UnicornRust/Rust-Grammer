@@ -7,7 +7,19 @@ pub fn string_variable() {
     iter_string();
     // append string
     append_string();
+    //
+    parse_num_str();
 }
+
+/**
+ ---------------------------------------------------------
+  不管是 String 类型 还是 slice 字符串都是 UTF-8 编码, Rust
+  为字符串提供了多种的不同的方式来解释计算机存储的原始字符串
+   - 字节 : 英文单字节，常见的双字节，不常见的三字节
+   - 标量值 : unicode 标量值
+   - 字形簇 : 由语言所表示的文字或者符号的形式/样式
+ ---------------------------------------------------------
+*/
 
 fn new_string() {
     let s1 = String::from("tic");
@@ -15,12 +27,24 @@ fn new_string() {
     let s3 = String::from("toe");
     let s = format!("{}-{}-{}", s1, s2, s3);
     println!("new_str: {}", s);
+
     // 第二种方式
     let _str = "string".to_string();
+
     // 第三种方式
     let _nstr = String::new();
 }
 
+/**
+-----------------------------------------------------------
+ String 中没有提供使用索引访问字符串的字符的方式：
+  - 因为在 UTF-8 编码的字符串中，字节的索引值与调用者想要获取的字符
+    通常不是对应的.
+  - 为了避免这样的错误发生, Rust 不让你这样做.
+-----------------------------------------------------------
+ 为了弥补这样的缺失，Rust 中引入了字符串 slice, 允许你划取某一个索引
+ 范围内的字节从而获得含有特定字符的字符串 slice.
+*/
 fn slice_string() {
     let s = String::from("hello world");
     // 截取某一个字节范围的字符串
@@ -43,14 +67,25 @@ fn slice_string() {
 fn iter_string() {
     // 按照字节输出
     let str = "hello cargo";
-    for c in str.bytes() {
-        println!("{}-", c)
+    for b in str.bytes() {
+        println!("{}-", b)
     }
 
     // 按照单个字符输出
     let emoje = "🐳,👽,❣️,🌈";
-    for b in emoje.chars() {
-        println!("{}:", b);
+    for c in emoje.chars() {
+        println!("{}:", c);
+    }
+
+    //
+    let s = String::from("x r t b h k k a m c");
+    let mut v1: Vec<char> = s.chars().collect();
+    // 排序
+    v1.sort();
+    // 去重
+    v1.dedup();
+    for c in v1 {
+        println!("{}, ", c)
     }
 }
 
@@ -67,6 +102,20 @@ fn append_string() {
     println!("{}", s2);
 
     // 第三种方式，`+` 运算符
+    // `+` 运算会调用一个内部 add(self, other: &str) -> String {} 函数
+    // 这里会移动左侧的变量，同时右侧变量需要是 &str 类型
     s3 = s3 + "tring";
-    println!("{}", s3)
+    println!("{}", s3);
+
+    // format!() 会返回一个 String, 不会获取任何参数的所有权
+    let s = format!("{}-{}-{}", s1, s2, s3);
+    println!("new_str: {}", s);
+}
+
+fn parse_num_str() {
+    const ONE_MIL: u32 = 1_000_000;
+    let age = "47";
+    let mut age: u32 = age.trim().parse().expect("Age wasn't assigned a number");
+    age = age + ONE_MIL;
+    println!("I'm {} and I want ${}", age, ONE_MIL)
 }

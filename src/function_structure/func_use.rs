@@ -1,3 +1,5 @@
+use std::ops::Add;
+
 // 演示函数定义的细节
 pub fn func_detail() {
     // function_defined
@@ -5,7 +7,14 @@ pub fn func_detail() {
     println!("{}", result);
 
     // fibonacci 数列
-    print_ten_fibonacci()
+    print_ten_fibonacci();
+
+    // sum list
+    let list = vec![1, 2, 3, 4, 5];
+    println!("Sum of list: {}", sum_list(&list));
+
+    println!("5 + 4 = {}", generic_function(5, 4));
+    println!("5.4 + 4.5 = {}", generic_function(5.4, 4.5));
 }
 
 // 定义参数类型
@@ -35,4 +44,16 @@ fn print_ten_fibonacci() {
         let x = fibonacci(i);
         println!("fibonacci:{i} --> {x}")
     }
+}
+
+fn sum_list(list: &[i32]) -> i32 {
+    let mut sum: i32 = 0;
+    for &val in list.iter() {
+        sum = sum + &val;
+    }
+    sum
+}
+
+fn generic_function<T: Add<Output = T>>(x: T, y: T) -> T {
+    return x + y;
 }

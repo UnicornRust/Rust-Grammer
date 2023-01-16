@@ -139,6 +139,12 @@ impl Rectangle {
     fn double_width(&mut self) {
         self.width *= 2
     }
+
+
+    // 测试多个参数，第二个参数是借用其他的 Rectangle 实例
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
 }
 
 // 计算面积
@@ -166,8 +172,10 @@ fn get_rectangle_area() {
         width: 30,
         height: 50,
     };
-    // 需要使用到可变的引用，这时候在定义的时候需要讲变量定义为可变的，
+
+    // 需要使用到可变的引用，这时候在定义的时候需要将变量定义为可变的，
     rect.double_width();
+
     println!(
         "The area of the rectangle is {}:{} square pixels",
         // 关联函数调用，使用结构体调用，类似于静态方法

@@ -1,6 +1,8 @@
 pub fn test_enum() {
+    println!("------------------test of enum ---------------------");
     test_first_level();
     test_second_level();
+    enum_func();
 }
 
 /// 枚举中只是列举了集合中的元素，这些元素中没有携带自己的信息
@@ -61,5 +63,30 @@ enum Message {
 impl Message {
     fn call(&self) {
         // 定义方法体
+        match self {
+            Message::Quit => {
+                println!("Quit");
+            },
+            Message::Move { x, y } => {
+                println!("Move({x}, {y})");
+            },
+            Message::Write(value) => {
+                println!("write a value: {}",value);
+            },
+            Message::ChangeColor(r, g, b) => {
+                println!("R:{r},G:{g},B{b}");
+            }
+        }
     }
+}
+
+fn enum_func(){
+    let m = Message::Write(String::from("hello world"));
+    m.call();
+    let m = Message::Quit;
+    m.call();
+    let m = Message::Move{x: 10, y: 20};
+    m.call();
+    let m = Message::ChangeColor(255,52,255);
+    m.call();
 }
