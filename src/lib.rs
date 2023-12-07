@@ -10,3 +10,4 @@ pub mod loop_structure;
 pub mod ownership_structure;
 pub mod variable_structure;
 pub mod command;
+pub mod intelligent_point;

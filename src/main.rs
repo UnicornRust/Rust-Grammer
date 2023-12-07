@@ -1,11 +1,17 @@
 // 引入需要使用的模块信息
 use base_grammer::{
     branch_structure, closures, command, function_structure, generic_structure, handle_error,
-    io_structure, iterator, loop_structure, ownership_structure, variable_structure,
+    io_structure,
+    iterator,
+    loop_structure,
+    ownership_structure,
+    variable_structure,
+    intelligent_point,
 };
 
 fn main() {
-    command::syscall::call()
+    intelligent_point::box_type::box_use();
+    // command::syscall::call()
 }
 
 fn premain() {
@@ -52,4 +58,6 @@ fn premain() {
     // 测试迭代器
     iterator::iter::iter_test();
     iterator::iter::iter_test();
+
+    // 测试只能指针 box 的使用
 }
