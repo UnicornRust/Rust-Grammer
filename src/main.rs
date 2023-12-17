@@ -7,7 +7,7 @@ use base_grammer::{
 fn main() {
     // intellpoint::boxtype::box_use();
     // command::syscall::call()
-    thread::base::thread();
+    thread::thread::run();
 }
 
 fn premain() {

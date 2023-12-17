@@ -1,15 +1,66 @@
 use std::{sync::mpsc, thread, time::Duration};
 
-pub fn thread() {
-    create();
+pub fn run(){
     channel();
     iter_recv();
+    use_mpsc();
 }
+
+// 多发送者的时候我们可以使用发送者的 clone 方法
+// 获得多个发送者的句柄并被移动到多个发送者中使用
+fn use_mpsc(){
+    let (tx, rx) = mpsc::channel();
+
+    // 使用 clone() 方法获取多个发送者
+    let tx_clone = tx.clone();
+
+    // 将发送者移动到新的线程中
+    let handle1 = thread::spawn(move || {
+        let vals = vec![
+            String::from("tx-new"),
+            String::from("tx-from"),
+            String::from("tx-thread"),
+        ];
+        for val in vals {
+            // send 会获取数据的所有权，将数据发送出去，同时将所有权移动
+            // 到另一个线程，后续不能在当前线程继续使用
+            tx.send(val).unwrap();
+            // 每发送一个休眠 1s
+            thread::sleep(Duration::from_secs(1));
+        }
+    });
+    // 将发送者移动到新的线程中
+    let handle2 = thread::spawn(move || {
+        let vals = vec![
+            String::from("tx-clone-new"),
+            String::from("tx-clone-from"),
+            String::from("tx-clone-thread"),
+        ];
+        for val in vals {
+            // send 会获取数据的所有权，将数据发送出去，同时将所有权移动
+            // 到另一个线程，后续不能在当前线程继续使用
+            tx_clone.send(val).unwrap();
+            // 每发送一个休眠 1s
+            thread::sleep(Duration::from_secs(1));
+        }
+    });
+
+
+    // 这里我们的接收者不再显式调用 recv 函数，而是将 rx 当作一个迭代器，
+    // 对于每一个一个接收到的值, 我们将其打印出来.
+    // 当信道被关闭时，迭代气也将结束。
+    for received in rx {
+        println!("Got: {received}");
+    }
+
+    handle1.join().unwrap();
+    handle2.join().unwrap();
+}
+
 
 // 通道可以遍历的特性, 方便我们在线程之间通信
 fn iter_recv() {
     let (tx, rx) = mpsc::channel();
-
     // 将发送者移动到新的线程中
     let handle = thread::spawn(move || {
         let vals = vec![
@@ -63,16 +114,4 @@ fn channel() {
     println!("Got: {}", received);
     // 等待程序执行完成
     handle.join().unwrap();
-}
-
-// 线程创建的方法啊
-fn create() {
-    thread::spawn(|| {
-        for i in 1..10 {
-            println!(
-                "this is {} to run code, no: {i}",
-                thread::current().name().unwrap()
-            )
-        }
-    });
 }
