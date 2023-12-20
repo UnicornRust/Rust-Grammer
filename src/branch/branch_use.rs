@@ -1,4 +1,4 @@
-pub fn branch_grammer() {
+pub fn run() {
     if_use();
     if_return();
 }

@@ -8,7 +8,7 @@ use std::{thread, time::Duration};
 ///    这样一个相对小的空间中，Rust 大多数情况可以通过推断确定类型.
 /// > 闭包允许捕获被定义时所在的作用域中的值。
 
-pub fn test_closure() {
+pub fn run() {
     println!("--------------------- test of closure ------------------");
     // 闭包概念的第一个例子
     first_closure();

@@ -5,7 +5,7 @@ use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
 
-pub fn io_test() {
+pub fn run() {
     // input_from_console();
     //
     file_create();

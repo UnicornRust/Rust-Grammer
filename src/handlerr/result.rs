@@ -7,7 +7,7 @@ use std::io::{self, ErrorKind, Read};
 /// 例如: 打开一个不存在的文件而失败，此时我们可能想要创建这个文件
 /// 而不是直接终止进程
 ///
-pub fn use_result() {
+pub fn run() {
     println!("---------------test of use result--------------");
     //
     open_file();

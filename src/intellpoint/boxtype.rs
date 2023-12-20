@@ -2,7 +2,7 @@ use crate::intellpoint::boxtype::List::{Cons, Nil};
 use std::ops::Deref;
 
 // box 的使用
-pub fn box_use() {
+pub fn run() {
     // 声明一个 box 类型的变量,
     // 这里声明了一个 i32 类型的变量，他将存储在堆上(大多数情况下是非必要的)
     // 主要是展示一下怎么使用一个 box 类型的变量
@@ -16,6 +16,31 @@ pub fn box_use() {
 
     // 像使用引用一样使用 Box<T>
     use_intellij_point_as_reference();
+
+    // 测试 Drop trait 执行的时机
+    drop_trait_occasion();
+}
+
+struct CustomSmartPoint {
+    data: String,
+}
+
+// Drop trait 执行的时机
+// 修改 drop 实现，直接打印数据，查看对应的 drop trait 在什么时候会执行
+impl Drop for CustomSmartPoint {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPoint with data `{}`!", self.data);
+    }
+}
+
+fn drop_trait_occasion() {
+    let _c = CustomSmartPoint {
+        data: String::from("my staff"),
+    };
+    let _d = CustomSmartPoint {
+        data: String::from("other staff"),
+    };
+    println!("CustomSmartPoint created!");
 }
 
 #[derive(Debug)]
@@ -76,10 +101,9 @@ impl<T> Deref for MyBox<T> {
     }
 }
 
-// 
-impl <T> Drop for MyBox<T> {
+//
+impl<T> Drop for MyBox<T> {
     fn drop(&mut self) {
         todo!()
     }
 }
-

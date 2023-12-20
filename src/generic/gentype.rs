@@ -1,7 +1,7 @@
 use std::fs::File;
 
 /// 用于测试泛型参数的应用
-pub fn generic_use() {
+pub fn run() {
     println!("-----------------test of generic use ----------");
     // 泛型参数使用
     generic_in_method();

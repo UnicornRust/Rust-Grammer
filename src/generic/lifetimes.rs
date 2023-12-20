@@ -5,7 +5,7 @@ use std::fmt::Display;
 /// 不同于 trait 确保类型具有我们期望的行为，生命周期则有助于确保引用
 /// 在我们需要他们的时候一直有效，
 ///
-pub fn use_lifetimes() {
+pub fn run() {
     println!("----------------lifetime trait----------------");
     // 生命周期注解的概念
     concept_lifetime();

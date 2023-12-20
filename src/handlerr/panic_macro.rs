@@ -1,4 +1,4 @@
-pub fn handle_error() {
+pub fn run() {
     // make_panic();
     panic_backtrace();
 }

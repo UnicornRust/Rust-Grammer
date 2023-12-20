@@ -1,4 +1,4 @@
-pub fn loop_grammer() {
+pub fn run() {
     println!("-------------------test of loop-----------------");
     loop_loop();
     loop_for();

@@ -1,7 +1,7 @@
 use std::ops::Add;
 
 // 演示函数定义的细节
-pub fn func_detail() {
+pub fn run() {
     // function_defined
     let result = func_defined(5, 'h');
     println!("{}", result);

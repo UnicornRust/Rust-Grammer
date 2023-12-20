@@ -5,9 +5,12 @@ use base_grammer::{
 };
 
 fn main() {
-    // intellpoint::boxtype::box_use();
-    // command::syscall::call()
-    thread::thread::run();
+    // intellpoint::boxtype::run();
+    intellpoint::rctype::run();
+    // command::syscall::call();
+    // thread::thread::run();
+    // thread::channel::run();
+    // thread::mutex::run();
 }
 
 fn premain() {
@@ -25,35 +28,34 @@ fn premain() {
     variable::vhashmap::hashmap_type();
 
     // 测试所有权
-    ownership::ownership::test_ownship();
+    ownership::ownership::run();
 
     // 测试方法结构
-    function::func_use::func_detail();
+    function::func_use::run();
 
     // 测试程序分支结构
-    loops::loop_use::loop_grammer();
+    loops::loop_use::run();
 
     // 测试程序循环结构
-    branch::branch_use::branch_grammer();
+    branch::branch_use::run();
 
     // 测试 io 流
-    iofs::stdio::io_test();
+    iofs::stdio::run();
 
     // 测试错误处理
-    // handlerr::panic_macro::handle_error();
-    handlerr::result::use_result();
+    // handlerr::panic_macro::run();
+    handlerr::result::run();
 
     // 测试泛型与声明周期
-    generic::generic_type::generic_use();
-    generic::trait_type::trait_use();
-    generic::lifetimes::use_lifetimes();
+    generic::gentype::run();
+    generic::gentrait::run();
+    generic::lifetimes::run();
 
     // 测试闭包
-    closures::closure::test_closure();
+    closures::closure::run();
 
     // 测试迭代器
-    iterator::iter::iter_test();
-    iterator::iter::iter_test();
+    iterator::iter::run();
 
     // 智能指针box 的使用
 }

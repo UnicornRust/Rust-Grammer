@@ -1,7 +1,7 @@
 use std::fmt::{Debug, Display};
 
 ///测试 trait 概念于使用
-pub fn trait_use() {
+pub fn run() {
     println!("---------------test of trait -----------------");
     // test use struct use trait method
     struct_use_trait_method();
