@@ -12,3 +12,4 @@ pub mod loops;
 pub mod ownership;
 pub mod thread;
 pub mod variable;
+pub mod blog;
