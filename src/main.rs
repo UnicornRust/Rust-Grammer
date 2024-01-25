@@ -1,7 +1,7 @@
 // 引入需要使用的模块信息
 use base_grammer::{
-    branch, closures, command, function, generic, handlerr, intellpoint, iofs, iterator, loops,
-    ownership, thread, variable,
+    blog, branch, closures, command, function, generic, handlerr, intellpoint, iofs, iterator,
+    loops, ownership, thread, variable,
 };
 
 fn main() {
@@ -11,6 +11,9 @@ fn main() {
     // thread::thread::run();
     // thread::channel::run();
     // thread::mutex::run();
+    //
+    blog::statemode::run();
+    blog::rusticmode::run();
 }
 
 fn premain() {
