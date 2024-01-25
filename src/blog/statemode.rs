@@ -1,3 +1,4 @@
+//
 // 探讨设计模式在 Rust 中怎样实现(本章设计模式使用的>>"状态模式"<<)
 // -----------------------------------------------------------------------
 //
@@ -14,6 +15,19 @@
 //   2. 重复的代码逻辑, request_review 和 approve是高度重复的
 //      (如果有很多这样的代码，考虑使用宏来消除这些重复)
 //
+
+pub fn  run() {
+    let mut post = Post::new();
+    post.add_text("hello world");
+
+    assert_eq!("", post.content());
+
+    post.request_review();
+    assert_eq!("", post.content());
+
+    post.approve();
+    assert_eq!("hello world", post.content());
+}
 
 pub struct Post {
     state: Option<Box<dyn State>>,
