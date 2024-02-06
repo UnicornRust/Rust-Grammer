@@ -1,3 +1,5 @@
+pub mod advance;
+pub mod blog;
 pub mod branch;
 pub mod closures;
 pub mod command;
@@ -10,6 +12,6 @@ pub mod iofs;
 pub mod iterator;
 pub mod loops;
 pub mod ownership;
+pub mod pattern;
 pub mod thread;
 pub mod variable;
-pub mod blog;
