@@ -1,4 +1,10 @@
-fn run() {}
+pub fn run() {
+    ignore_with_lowdash();
+    nest_lowdash();
+    ignore_var();
+    ignore_some();
+    ignore_flexiable_with_double_dot();
+}
 
 //
 // 忽略模式中的值
@@ -63,7 +69,9 @@ fn ignore_var() {
     if let Some(_s) = s {
         println!("found a string");
     }
-    println!("{:?}", s);
+
+    //  s 被部分移动，不再允许使用
+    // println!("{:?}", s);
 
     // 如果我们使用 Some(_) 来完成匹配的时候并没有移动s
     // 后面可以继续使用 s

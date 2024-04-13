@@ -2,7 +2,9 @@
 // at 运算符允许我们在创建一个存放哪个值的变量的同时测试其值是否匹配模，
 // 使用 `@` 可以在一个模式中同时测试和保存变量值。
 //
-fn run() {}
+pub fn run() {
+    value_validate();
+}
 
 //
 fn value_validate() {

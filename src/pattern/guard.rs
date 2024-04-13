@@ -3,7 +3,7 @@
 // 匹配守卫：是一个指定于 吗通常 分支模式后的额外 if 条件， 
 // 它也必须被满足才能选择此分支,匹配守卫用于表达比单独模式所能允许的更为复杂的情况。
 //
-fn run() {
+pub fn run() {
     guard();
     guard_not_cover();
     multi_pattern_guard();
