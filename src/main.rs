@@ -1,19 +1,13 @@
 // 引入需要使用的模块信息
 use base_grammer::{
-    blog, branch, closures, command, function, generic, handlerr, intellpoint, iofs, iterator,
-    loops, ownership, thread, variable,
+    advance, blog, branch, closures, command, function, generic, handlerr, intellpoint, iofs, iterator, loops, ownership, pattern, thread, variable
 };
 
 fn main() {
-    // intellpoint::boxtype::run();
-    intellpoint::rctype::run();
     // command::syscall::call();
-    // thread::thread::run();
-    // thread::channel::run();
-    // thread::mutex::run();
     //
-    blog::statemode::run();
-    blog::rusticmode::run();
+    advance::raw::run();
+    advance::union::run();
 }
 
 fn premain() {
@@ -61,4 +55,23 @@ fn premain() {
     iterator::iter::run();
 
     // 智能指针box 的使用
+    intellpoint::boxtype::run();
+    intellpoint::rctype::run();
+
+    // 线程使用
+    thread::thread::run();
+    thread::channel::run();
+    thread::mutex::run();
+
+    // rust 面向对象,设计模式
+    blog::statemode::run();
+    blog::rusticmode::run();
+
+    // rust 模式匹配
+    pattern::matching::run();
+    pattern::ignore::run();
+    pattern::pgrammer::run();
+    pattern::pgrammer::run();
+    pattern::atoperation::run();
+
 }

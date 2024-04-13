@@ -1,7 +1,9 @@
 //
 // unsafe 代码
 //
-fn run() {}
+pub fn run() {
+    create_raw_point();
+}
 
 // 创建裸指针
 //
