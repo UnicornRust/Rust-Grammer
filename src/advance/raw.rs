@@ -1,8 +1,24 @@
+use core::slice;
+
 //
 // unsafe 代码
 //
 pub fn run() {
+    // 1. 解裸指针应用
     create_raw_point();
+
+    // 2.在 unsafe 块中调用不安全的函数
+    unsafe {
+        dangerous();
+    }
+
+    // 3. 创建不安全代码的安全抽象
+    let mut v = vec![1, 2, 3, 4, 5, 6];
+    let (a, b) = split_at_mut(&mut v, 3);
+    assert_eq!(a, &mut [1, 2, 3]);
+    assert_eq!(b, &mut [4, 5, 6]);
+
+
 }
 
 // 创建裸指针
@@ -29,4 +45,43 @@ fn create_raw_point() {
     // segmentation fault (通常不要编写这样的代码尽管它是可行的)
     let address = 0x012345usize;
     let r = address as *const i32;
+
+    // 段错误
+    // unsafe {
+    //     println!("r is: {}", *r);
+    // }
 }
+
+// 调用非安全函数或方法
+//
+// 非安全的函数与其他函数的不同就是有一个unsafe 修饰词
+// unsafe  函数内部就是一个 unsafe 块，在其中书写不安全
+// 代码不用再编写 unsafe 块
+unsafe fn dangerous() {
+    let address = 0x01234usize;
+    let r = address as *mut i32;
+    // 不安全操作
+    let values:  &[i32] = slice::from_raw_parts_mut(r, 1000);
+    println!("{}", values.len());
+}
+
+//
+// 创建不安全代码的安全抽象
+fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
+    let len = values.len();
+    let ptr = values.as_mut_ptr();
+
+    // 断言我们传入的参数在我们的 slice 的索引之内
+    assert!(mid <= len);
+
+    unsafe {
+        (
+            slice::from_raw_parts_mut(ptr, mid),
+            slice::from_raw_parts_mut(ptr.add(mid), len - mid),
+        )
+    }
+}
+
+
+
+
