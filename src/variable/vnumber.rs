@@ -34,7 +34,7 @@ fn number_categary() {
     // f32 :
     // f64 :
 
-    // 默认的浮点类型是 f64，显示声明的 f32 才会被使用
+    // 默认的浮点类型是 f64，显式声明的 f32 才会被使用
     let x = 2.0; // f64
     println!("float number : {}", x);
 

@@ -141,7 +141,7 @@ fn ownership_hashmap() {
     map.insert(field_name, field_value);
 
     // 这里 field_name 和 field_value 所有权被移动到
-    // haspmap 所有，不能再被访问
+    // hashmap 所有，不能再被访问
     //
 
     //  -------------------------------------------
