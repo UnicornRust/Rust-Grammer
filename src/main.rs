@@ -1,6 +1,6 @@
 // 引入需要使用的模块信息
 use base_grammer::{
-    advance, blog, branch, closures, command, function, generic, handlerr, intellpoint, iofs,
+    advance, blog, branch, closures, command,eventloop, function, generic, handlerr, intellpoint, iofs,
     iterator, loops, ownership, pattern, thread,
     variable::{self, vcommon::variable},
 };
@@ -8,9 +8,6 @@ use base_grammer::{
 fn main() {
     // command::syscall::call();
     //
-    advance::raw::run();
-    advance::union::run();
-    iofs::pathfile::run();
 }
 
 fn premain() {
@@ -76,4 +73,12 @@ fn premain() {
     pattern::pgrammer::run();
     pattern::pgrammer::run();
     pattern::atoperation::run();
+
+    // rust 高级部分
+    advance::raw::run();
+    advance::union::run();
+    advance::newtype::run();
+    // 
+    iofs::pathfile::run();
+    eventloop::play::run();
 }

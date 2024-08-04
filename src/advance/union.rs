@@ -173,8 +173,6 @@ impl fmt::Display for Point {
 impl OutlinePrint for Point {}
 
 
-
-
 // newtype 模式用以在外部类型上实现 trait
 // 一些定义在 crate 之外的内容，想要对其实现一些其他 trait 
 // 但是这在 rust 中这是不允许的。我们需要在当前 crate 中对其进行包装
