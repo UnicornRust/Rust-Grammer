@@ -1,3 +1,5 @@
+use std::{cmp::Ordering, io};
+
 pub fn run() {
     println!("-------------------test of loop-----------------");
     loop_loop();
@@ -73,3 +75,4 @@ fn loop_dot_dot() {
         println!("rev: {}", arr[i]);
     }
 }
+

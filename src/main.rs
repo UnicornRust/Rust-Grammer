@@ -2,12 +2,13 @@
 use base_grammer::{
     advance, blog, branch, closures, command,eventloop, function, generic, handlerr, intellpoint, iofs,
     iterator, loops, ownership, pattern, thread,
-    variable::{self, vcommon::variable},
+    variable,
 };
 
 fn main() {
     // command::syscall::call();
     //
+    variable::varray::run();
 }
 
 fn premain() {
@@ -23,6 +24,7 @@ fn premain() {
     variable::venum::test_enum();
     variable::vvec::vec_type();
     variable::vhashmap::hashmap_type();
+    variable::varray::run();
 
     // 测试所有权
     ownership::ownership::run();
