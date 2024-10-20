@@ -5,3 +5,4 @@ pub mod global;
 pub mod newtype;
 pub mod alias;
 pub mod nevertype;
+pub mod usestatic;

@@ -16,3 +16,5 @@ pub mod pattern;
 pub mod thread;
 pub mod variable;
 pub mod eventloop;
+pub mod traits;
+mod test;
