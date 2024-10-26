@@ -47,7 +47,7 @@ fn loop_break() {
             break x + 1;
         }
         println!("{}", arr[x]);
-        x = x - 1;
+        x -= 1;
     };
     println!("break return {}", ok);
 }

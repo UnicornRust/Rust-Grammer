@@ -36,7 +36,7 @@ fn fibonacci(n: i32) -> i32 {
     if n <= 1 {
         return n;
     };
-    return fibonacci(n - 1) + fibonacci(n - 2);
+    fibonacci(n - 1) + fibonacci(n - 2)
 }
 
 fn print_ten_fibonacci() {
@@ -49,11 +49,11 @@ fn print_ten_fibonacci() {
 fn sum_list(list: &[i32]) -> i32 {
     let mut sum: i32 = 0;
     for &val in list.iter() {
-        sum = sum + &val;
+        sum += &val;
     }
     sum
 }
 
 fn generic_function<T: Add<Output = T>>(x: T, y: T) -> T {
-    return x + y;
+     x + y
 }

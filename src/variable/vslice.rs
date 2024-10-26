@@ -1,6 +1,7 @@
 
-/// slice 允许我们引用一个集合中的一段连续的元素序列。而不是一个集合的全部元素。
-/// slice 是一类引用，所以它没有所有权
+/// slice 允许我们引用一个集合中的一段连续的元素序列。
+/// 而不是一个集合的全部元素。slice 是一类引用，
+/// 所以它没有所有权
 
 pub fn slice_reference() {
 
@@ -8,6 +9,8 @@ pub fn slice_reference() {
     // 引用
     only_one_reference();
     str_or_string_call_slice();
+    //
+    arra_slice();
 }
 
 fn only_one_reference() {
@@ -41,9 +44,9 @@ fn first_word(s: &String) -> &str  {
 }
 
 // 查找字符
-// 当我们使用 &str 改写参数之后，这使得我们的程序既可以使用字符串引用调用
-// 也可以使用 slice 引用调用
-pub fn one_word(s: &str) -> &str {
+// 当我们使用 &str 改写参数之后，这使得我们的程序
+// 既可以使用字符串引用调用,也可以使用 slice 引用调用
+fn one_word(s: &str) -> &str {
     // 转化为字符数组
     let chars = s.chars();
     for (i, item) in chars.enumerate() {
@@ -53,3 +56,14 @@ pub fn one_word(s: &str) -> &str {
     }
     return &s[..];
 }
+
+
+// 数组的切片
+fn arra_slice() {
+    let a = [ 1, 2, 3, 4, 5];
+    let slice = &a[1..3];
+    println!("{:?}", slice);
+}
+
+
+

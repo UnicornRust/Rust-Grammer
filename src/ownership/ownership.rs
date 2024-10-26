@@ -1,5 +1,6 @@
 // test for ownership
 pub fn run() {
+    own();
     simple_copy_trait();
 
     no_copy_trait();
@@ -115,3 +116,11 @@ fn cant_mut_with_imut() {
 //     let s = String::from("hello");
 //     &s
 // }
+
+fn own(){
+    // s 不可用    
+    let s = "ok"; // s 可用
+    // 可以对 s 进行相关操作
+    println!("{s}");
+} // s 作用域结束, s 不再可用
+

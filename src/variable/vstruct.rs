@@ -71,7 +71,7 @@ fn update_from_other() {
     };
 
     // 结构更新语法，
-    // 类似于 js 中的结构，但是原理完全不同，
+    // 类似于 js 中的解构，但是原理完全不同，
     // 只能放在最后，同时只会把上面没有定义的字段放在后面
     let user2 = User {
         email: "unicorn@github.com".to_string(),

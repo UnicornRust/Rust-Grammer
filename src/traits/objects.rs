@@ -1,4 +1,3 @@
 
-pub fn union() -> _ {
-    todo!()
+pub fn union()  {
 }

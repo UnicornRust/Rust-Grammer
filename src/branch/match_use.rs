@@ -129,7 +129,7 @@ fn value_in_cents(coins: Coins) -> u8 {
         Coins::Penny => {
             // 每一个模式中可以写自己的代码，
             println!("Lucky Penny");
-            return 1;
+            1
         }
         Coins::Nickel => 5,
         Coins::Dime => 10,

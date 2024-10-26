@@ -9,6 +9,7 @@ fn main() {
     // command::syscall::call();
     //
     variable::varray::run();
+    variable::vslice::slice_reference();
 }
 
 fn premain() {
