@@ -17,31 +17,13 @@ pub fn run() {
     // 像使用引用一样使用 Box<T>
     use_intellij_point_as_reference();
 
+    // 函数方法的隐式 Deref 强制转换
+    type_deref_coercions();
+
     // 测试 Drop trait 执行的时机
     drop_trait_occasion();
 }
 
-struct CustomSmartPoint {
-    data: String,
-}
-
-// Drop trait 执行的时机
-// 修改 drop 实现，直接打印数据，查看对应的 drop trait 在什么时候会执行
-impl Drop for CustomSmartPoint {
-    fn drop(&mut self) {
-        println!("Dropping CustomSmartPoint with data `{}`!", self.data);
-    }
-}
-
-fn drop_trait_occasion() {
-    let _c = CustomSmartPoint {
-        data: String::from("my staff"),
-    };
-    let _d = CustomSmartPoint {
-        data: String::from("other staff"),
-    };
-    println!("CustomSmartPoint created!");
-}
 
 #[derive(Debug)]
 enum List {
@@ -75,7 +57,7 @@ fn use_intellij_point_as_reference() {
 
     // 使用自定义的类型
     let p = MyBox::new(x);
-    assert_eq!(5, *p);
+    assert_eq!(5, *p); // 如果没有 deref, 这里应该是 `*(p.deref())`
 }
 
 // 这里我们仿照 Box<T> 类型自定义一个 MyBox<T> 类型来体会 Box<T> 实现的原理
@@ -106,4 +88,46 @@ impl<T> Drop for MyBox<T> {
     fn drop(&mut self) {
         todo!()
     }
+}
+
+fn hello(name: &str) {
+  println!("hello, {name}!");
+}
+
+// 函数方法的隐式 Deref 强制转换
+fn type_deref_coercions(){
+
+  let m = MyBox::new(String::from("rust"));
+  // 使用 &m 获取到MyBox<String> 值得引用，由于MyBox<T> 实现了 Deref trait
+  // Rust 可以通过 deref 将 MyBox<String> 转换为 &String
+  // 标准库中提供了 String 上的 Deref 实现，其会返回字符串切片, 就是引用, 
+  // Rust 再次调用 String 的 deref 将 &String 变为 &str
+  // MyBox<String> -> &String -> &str
+  hello(&m);
+
+  // 如果没有上述的过程
+  // 则我们可以需要写出如下可读性很差的转换代码
+  // hello(&(*m)[..]);
+}
+
+struct CustomSmartPoint {
+    data: String,
+}
+
+// Drop trait 执行的时机
+// 修改 drop 实现，直接打印数据，查看对应的 drop trait 在什么时候会执行
+impl Drop for CustomSmartPoint {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPoint with data `{}`!", self.data);
+    }
+}
+
+fn drop_trait_occasion() {
+    let _c = CustomSmartPoint {
+        data: String::from("my staff"),
+    };
+    let _d = CustomSmartPoint {
+        data: String::from("other staff"),
+    };
+    println!("CustomSmartPoint created!");
 }

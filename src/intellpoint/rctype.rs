@@ -27,6 +27,7 @@ fn rc_type_refer_check() {
     let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
     println!("count after create a = {}", Rc::strong_count(&a));
     let _b = Cons(3, Rc::clone(&a));
+
     println!("count agter create b = {}", Rc::strong_count(&a));
     {
         let _c = Cons(4, Rc::clone(&a));
