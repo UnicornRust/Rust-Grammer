@@ -8,7 +8,7 @@ pub mod rc_refcell;
 
 pub fn run() {
 
-    rc_refcell::run();
     boxtype::run();
     rctype::run();
+    rc_refcell::run();
 }

@@ -1,18 +1,11 @@
 // 引入需要使用的模块信息
 use rs_grammer::{
-    advance, blog, branch, closures, command,eventloop, function, generic, handlerr, intellpoint::{self, rc_refcell::rc_with_refcell}, iofs, 
-    iterator, loops, ownership, pattern, thread,
-    variable,
+    advance, blog, branch, closures, command,eventloop, function, generic, handlerr, intellpoint, iofs, 
+    iterator, loops, ownership, pattern, thread, variable,
 };
 
 fn main() {
-    // command::syscall::call();
-    //
-    point()
-}
-
-fn point() {
-    rc_with_refcell();
+    intellpoint::run();
 }
 
 fn premain() {
@@ -61,5 +54,9 @@ fn premain() {
     // rust 高级部分
     advance::run();
 
+    // 事件循环
     eventloop::run();
+
+    // 测试调用系统命令
+    command::run();
 }
