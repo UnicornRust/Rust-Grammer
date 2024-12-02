@@ -1,5 +1,5 @@
 //
-// refcell
+// refcell 
 //
 use std::cell::RefCell;
 
@@ -36,6 +36,9 @@ pub struct LimitTracker<'a, T: 'a + Message> {
 }
 
 
+//
+// 内部可变性
+//
 impl<'a, T> LimitTracker<'a, T> 
 where 
     T: Message 

@@ -12,7 +12,8 @@ pub fn vec_type() {
 
     // get vet item
     get_vec_item();
-
+    // 获取 vec 的一些元数据
+    get_vec_meta();
     // test scope
     test_scope();
 
@@ -26,6 +27,8 @@ fn defind_new_vec() {
     // mut 表示可以在里面添加数据
     let mut v: Vec<i32> = Vec::new();
     v.push(100);
+    // 当作栈的方式来使用
+    v.pop();
 }
 
 fn vec_macro() {
@@ -35,6 +38,15 @@ fn vec_macro() {
     let mut vec2 = vec![1, 2, 3, 4];
     vec2.push(5);
     println!("1st : {}", vec2[0]);
+}
+
+fn get_vec_meta() {
+    let mut vec2 = vec![1, 2, 3, 4];
+    println!("vec size: {}", vec2.len());
+    println!("vec capacity: {}", vec2.capacity());
+    // vec 数据存储是在堆上的, 也可以通过引用来操作数据
+    println!("vec reference: {:?}", &vec2);
+    println!("vec reference: {:?}", vec2.as_ptr());
 }
 
 // 读取 vec 中值

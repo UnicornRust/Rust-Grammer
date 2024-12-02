@@ -16,3 +16,15 @@ fn run() {
 extern "C" {
     fn abs(input: i32) -> i32;
 }
+
+
+// 其他语言调用 rust 函数
+// 这里是不需要 unsafe 的, 除非使用了不安全的 rust 
+//
+// 1.可以使用 extern 创建接口，其他语言通过他们可以调用 Rust 函数
+// 2.fn 关键字前指定 extern 关键字，并指定 "ABi"
+// 3.#[no_mangle] 注解主要是防止代码编译优化时被重命名
+#[no_mangle]
+pub extern "C" fn call_from_c() {
+    println!("called from C");
+}

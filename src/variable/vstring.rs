@@ -7,8 +7,10 @@ pub fn string_variable() {
     iter_string();
     // append string
     append_string();
-    //
+    // 与数字之间的转换
     parse_num_str();
+    // 获取字符串的指针
+    get_ptr();
 }
 
 /**
@@ -25,11 +27,16 @@ fn new_string() {
     let s1 = String::from("tic");
     let s2 = String::from("tac");
     let s3 = String::from("toe");
+
     let s = format!("{}-{}-{}", s1, s2, s3);
     println!("new_str: {}", s);
 
     // 第二种方式
     let _str = "string".to_string();
+
+    // 字符串字面量的 into() 方法，凡是调用这个方法无自动推导类型
+    // 需要主动标定类型 (实际上是调用 From trait 中的方法，实现了类型转换)
+    let _s: String = "hello".into();
 
     // 第三种方式
     let _nstr = String::new();
@@ -119,3 +126,11 @@ fn parse_num_str() {
     age = age + ONE_MIL;
     println!("I'm {} and I want ${}", age, ONE_MIL)
 }
+
+
+fn get_ptr() {
+    let s = String::from("work later");
+    let p : *const u8 = s.as_ptr();
+    println!("p: {:?}", p);
+}
+
