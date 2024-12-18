@@ -69,8 +69,6 @@ pub trait Xris {
 //  fn use_trait_object(t: &dyn Yris) {}
 
 
-
-
 // 4. trait 实现与所有权
 //
 // 在自定义的 trait 方法中, 可以根据需要获取类型的不可变引用，可变引用或者所有权

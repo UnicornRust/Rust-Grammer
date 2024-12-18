@@ -1,3 +1,5 @@
+use std::{collections::HashMap, slice::Iter};
+
 ///
 /// 用于测试演示迭代器的使用
 /// 迭代器模式，对一系列的项执行某些任务
@@ -37,7 +39,7 @@ fn iter_create() {
     }
 }
 
-/// 2.迭代器都实现了一个叫做 Iterator 的定义于标准库的 trait, 这个 trait 中定义了
+/// 2.迭代器都实现了一个叫做 Iterator 的定义于标准库的 Itetator, 这个 trait 中定义了
 ///  - 一个 tarit 的关联类型，这个类型作为 next 返回值的类型，就是迭代器返回元素类型
 ///  - 一个 next() 方法, 这是迭代器实现着被要求定义的唯一方法，
 ///     - next 一次返回迭代器中的一个项, 
@@ -92,11 +94,19 @@ fn iter_sum() {
 ///   可以链式调用多个迭代器适配器来进行复杂的操作
 fn iter_iterator_adaptor() {
     let v1: Vec<i32> = vec![1, 2, 3];
-    // 因为所有的迭代器适配器都是惰性的，因此我们单独使用他们(例如这里使用 map)
-    // 的时候并不会执行任何操作，总是需要一个消费适配器来获取迭代适配器的结果
-    // 这里使用 collect() 来收集结果到一个 vector 中，他们是源数据的项加一后得到的 vector
-    let v2: Vec<i32> = v1.iter().map(|x| x + 1).collect();
+    // 因为所有的迭代器适配器都是惰性的，因此我们单独使用他们
+    // (例如这里使用 map, take, filter等) 的时候并不会执行任何操作，
+    // 总是需要一个消费适配器来获取迭代适配器的结果
+    // 这里使用 collect() 来收集结果到一个 vector 中，
+    // 他们是源数据的项经过一系列操作后得到的 vector
+    let v2: Vec<i32> = v1.iter()
+        .map(|x| x + 1)
+        .take(3)
+        .filter(|x| *x > 6)
+        .collect();
     println!("{:#?}", v2)
+
+    // for_each() 方法也是一个消费适配器
 }
 
 ///  
@@ -141,4 +151,24 @@ fn shoes_in_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
     // 闭包从环境中捕获了 shoe_size 变量，并将每一只鞋的大小做比较，只保留指定大小
     // 的鞋子，最终，调用 collect 将迭代器返回的值收集进一个 vector 并返回
     shoes.into_iter().filter(|s| s.size == shoe_size).collect()
+}
+
+
+// vec haspmap 等集合类型都实现了迭代器
+
+fn iterator_collection() {
+    let map = HashMap::from([("rust", 1), ("go", 2), ("python", 3)]);
+    let map_iter = map.into_iter();
+    let vec: Vec<(&str, i32)> = map_iter.collect();
+    println!("{:?}", vec);
+}
+
+
+// 迭代器的借用和所有权
+fn iter_borrow_and_ownership() {
+    let mut vec = vec![2, 3, 4, 5, 6];
+    let _iter_mut = vec.iter_mut();  // 转为IterMut 结构体，可变借用 
+    let _iter: Iter<i32> = vec.iter(); // 转为Iter 结构体，不可变借用
+    let _iter_into = vec.into_iter(); // 转为IntoIter 结构体，获取所有权
+    
 }

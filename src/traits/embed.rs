@@ -1,7 +1,11 @@
 //
-// Copy and Clone trait
+// ==============================================
+// 1.Copy and Clone trait
+// ==============================================
 //
 // 大部分的固定大小类型都实现了 Copy trait, 赋值行为发生时进行了值的复制
+
+use std::ops::Deref;
 
 fn copy_clone() {
     // 
@@ -37,7 +41,9 @@ fn copy_clone() {
 }
 
 
-// 类型转换实例 From 和 Into Trait
+// ==============================================
+// 2.类型转换实例 From 和 Into Trait
+// ==============================================
 
 #[derive(Debug)]
 struct Number {
@@ -87,7 +93,9 @@ pub fn into() {
 // 业务场景中使用的更多
 
 
-// AsRef 和 AsMut Trait
+// ==============================================
+// 3.AsRef 和 AsMut Trait
+// ==============================================
 //
 // 通过 AsMut 可以获取结果提成员的可变引用
 impl AsMut<i32> for Number {
@@ -113,6 +121,101 @@ impl AsRef<i32> for Number {
     fn as_ref(&self) -> &i32 {
         &self.value
     }
+}
+
+// ===============================================
+// 4. 迭代器 Iterator / IntoIterator Trait
+// ===============================================
+// 
+// 4.1. Iterator Trait 内部有
+//  
+//  一个关联类型 Item
+//  迭代器的一系列方法, next, count, last, nth, chain...
+//  
+//
+// 4.2 IntoIterator 中有两个关联类型
+// 
+//  一个是 Item
+//  一个是 IntoIter(实现了 Iterator trait 的类型),
+//  一个  into_iter(self) -> self::IntoIter 方法, 返回实现 Iterator trait 的类型
+
+// rust 中 的 for 循环就是迭代器的语法糖
+
+fn iterator_for() {
+    let values = vec![1, 2, 3, 4, 5];
+    // values 迭代之后就相当于被 move 掉了
+    for x in values {
+        println!("{x}");
+    }
+
+    // 等价效果
+    let values = vec![1, 2, 3, 4, 5];
+    let mut v_iter = values.into_iter();
+    loop {
+        match v_iter.next() {
+            Some(x) => println!("{x}"),
+            None => break
+        }
+    }
+}
+
+
+// ==============================================
+// Deref 和 Drop trait 
+// ==============================================
+
+#[derive(Debug)]
+struct User {
+    name: String,
+    age: i32,
+}
+
+impl Drop for User {
+    fn drop(&mut self) {
+        // 实现细节只是打印观测执行效果
+        println!("User has been dropped: {:?}", "rust");  
+    }
+}
+
+
+#[derive(Debug)]
+struct MyBox<T>(T);
+
+impl<T> Deref for MyBox<T> {
+    type Target = T;
+    fn deref(&self) -> &T {
+        &self.0
+    }
+}
+
+fn drop_user_trait() {
+    let mut user = User {
+        name: String::from("Alex"),
+        age: 12,
+    };
+    // 无法进行手动调用，而是在类型走出作用域时自动调用
+    // 显式调用会冲突
+    // user.drop()  
+    // 走出作用域可以看到 drop() 函数中的打印执行了
+}
+
+
+fn dref_box() {
+    let m = MyBox("rust");
+
+    // 实现 Dref trait 的智能指针可以使用 * 解引用Box内部的值
+    // 下面两种写法是等价的(直接解引用实际就是编译器调用deref()方法的语法糖)
+    let ref_my_box = *m;
+    let ref_my_box = (m.deref());
+    
+    println!("valus is {ref_my_box}");
+
+    // String 实现了 Deref trait, 因此他也是智能指针，可以直接解引用
+    let value = String::from("rust");
+    take_string_ref(&value);
 
 }
 
+fn take_string_ref(v: &str) {
+    println!("valus is {v}");
+}

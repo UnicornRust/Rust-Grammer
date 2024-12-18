@@ -11,7 +11,7 @@ enum List {
     Nil,
 }
 
-// rc 引用计数指针指针得引入场景）
+// rc 引用计数指针指针的引入场景
 fn rc_type() {
     let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
 
