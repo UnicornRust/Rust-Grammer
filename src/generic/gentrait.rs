@@ -8,7 +8,7 @@ pub fn run() {
 
     // 结构体中使用泛型时，为实现了特定的 trait 的类型
     // 添加方法测试
-    generic_fot_struct_method_selected();
+    generic_for_struct_method_selected();
 
     // 测试标准库中的 ToString blanket implementation
     use_blanket_implementations();
@@ -207,7 +207,7 @@ impl<T: Display + PartialOrd> Pair<T> {
     }
 }
 
-fn generic_fot_struct_method_selected() {
+fn generic_for_struct_method_selected() {
     let some = Pair::new(Some("hello"), Some("ok"));
     println!("{:?}:{:?}", some.x, some.y);
     let int = Pair::new(20, 40);
