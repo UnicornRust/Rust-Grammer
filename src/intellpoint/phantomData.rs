@@ -18,12 +18,12 @@ impl <T>  WorkType<T>  {
     }
 }
 
-impl<T> Deref for WorkType<T> {
-    type Target: T;
-    fn deref(&self) -> &Self::Target {
-        unsafe { &*self.data}
-    }
-}
+// impl<T> Deref for WorkType<T> {
+//     type Target: T;
+//     fn deref(&self) -> &Self::Target {
+//         unsafe { &*self.data}
+//     }
+// }
 
 
 impl <T> Drop for WorkType<T> {

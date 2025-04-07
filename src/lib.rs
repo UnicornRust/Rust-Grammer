@@ -19,3 +19,4 @@ pub mod eventloop;
 pub mod traits;
 mod test;
 pub mod prelude;
+pub mod ipc;
