@@ -4,6 +4,7 @@ use libc::{shmat, shmctl, shmget, IPC_CREAT, IPC_RMID};
 
 const SHM_SIZE: usize = 1024;
 
+/* 
 pub fn usage_shmem() {
     let key = 1234;
 
@@ -27,7 +28,9 @@ pub fn usage_shmem() {
             ptr::copy_nonoverlapping(data.as_ptr(), shm, data.len());
         }
     });
+
     thread::sleep(Duration::from_secs(2));
+
     unsafe {
         println!("Reader received: {}", String::from_utf8_lossy(
             std::slice::from_raw_parts(shm, 17)
@@ -37,3 +40,4 @@ pub fn usage_shmem() {
     handle.join().unwrap();
 }
 
+*/

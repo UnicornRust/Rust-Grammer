@@ -4,6 +4,6 @@ pub mod unix;
 
 pub fn run() {
     pipe::usage_pipe();
-    shmem::usage_shmem();
+    // shmem::usage_shmem();
     unix::usage_unix();
 }

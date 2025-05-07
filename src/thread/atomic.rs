@@ -5,7 +5,7 @@
 use std::{ sync::{atomic::{compiler_fence, AtomicBool, Ordering}, Arc}, thread, time::Duration};
 
 
-fn work_with_atomic() {
+pub fn run() {
 
     // 创建一个 AtomicBool 类型的自旋锁, 通过 Arc 包裹以在多线程之间共享
     let spin_lock = Arc::new(AtomicBool::new(false));

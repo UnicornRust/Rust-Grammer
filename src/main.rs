@@ -4,10 +4,15 @@ use rs_grammer::{
 };
 
 fn main() {
-    ipc::run();
+
+    thread::run();
 }
 
 fn premain() {
+
+    // 测试 ipc 通信
+    ipc::run();
+
     // 测试数据类型的使用
     variable::run();
 
@@ -42,7 +47,6 @@ fn premain() {
     intellpoint::run();
 
     // 线程使用
-    thread::run();
 
     // rust 面向对象,设计模式
     blog::run();
