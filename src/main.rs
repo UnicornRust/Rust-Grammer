@@ -1,11 +1,12 @@
 // 引入需要使用的模块信息
 use rs_grammer::{
-    advance, blog, branch, closures, command, eventloop, function, generic, handlerr, intellpoint, iofs, ipc, iterator, loops, ownership, pattern, thread, variable
+    advance, blog, branch, closures, command, eventloop, function, generic, handlerr, intellpoint, iofs, ipc, iterator, loops, ownership, pattern, thread, unsafecode, variable
 };
 
 fn main() {
 
-    thread::run();
+    // thread::run();
+    unsafecode::run();
 }
 
 fn premain() {
