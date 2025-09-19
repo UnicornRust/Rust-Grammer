@@ -15,8 +15,8 @@ pub fn run() {
     let sc = Arc::clone(&spin_lock);
 
     let thread = thread::spawn(move || {
-        // 使用 SeqCst 内存顺序将锁状态设置为 true, 表示锁被占用， SeqCst
-        // 可以确保此操作对所有线程立即可用
+        // 使用 SeqCst 内存顺序将锁状态设置为 true, 表示锁被占用， 
+        // SeqCst 可以确保此操作对所有线程立即可用
         // 即无论其他线程在何处，他们都能看到这个改变
         spin_lock_clone.store(true, Ordering::SeqCst);
         println!("spin_lock status a {:?}", sc);
@@ -40,7 +40,7 @@ pub fn run() {
 
     });
 
-    // 主线程在这里会持续检查自旋锁的状态, 只要所的值为 true(被占用), 就会等待
+    // 主线程在这里会持续检查自旋锁的状态, 只要锁的值为 true(被占用), 就会等待
     // 这里也使用 SeqCst 内存顺序来保证锁状态的读取能在多线程中同步
     while spin_lock.load(Ordering::SeqCst) {
         println!("spin_lock c {:?}", spin_lock);

@@ -17,7 +17,19 @@ pub fn share() {
 ///   > 
 ///
 fn static_data() {
-    
+    static mut DATA: [i32;5] = [1, 2, 3, 4, 5];
+
+    let handler = thread::spawn(|| unsafe {
+        println!("{DATA:?}");
+    });
+
+    // 访问可变的(mut) static 修改时需要 在 unsafe 块中执行
+    let handle2 = thread::spawn(|| unsafe {
+        DATA[2] = 10;
+    });
+
+    handler.join().unwrap();
+    handle2.join().unwrap();
 }
 
 // 2. Box::leak()
@@ -33,7 +45,7 @@ fn leak() {
     // 则编译器无法推断其为 'static, 也就无法跨线程进行借用
     let data: &'static [i32;5] = Box::leak(Box::new([1, 2, 3, 4, 5]));
     let mut handles = Vec::new();
-    for  _ in 0..10000 {
+    for  _ in 0..2 {
         // move 的含义
         //  这里使用 move 移动的语义，并没有真正的移动 data 到新的线程
         //  因为 data 在这里是一个`'static` 生命周期的引用，其实就是
@@ -49,12 +61,11 @@ fn leak() {
 // 3. Arc<T> 原子引用计数(atomically reference counted)
 //   > 与 Rc<T> 类似，但 Arc<T> 保证对引用计数器的修改是不可分割的原子操作
 //   > 可以在多线程环境中使用
-
 fn arc() {
     let data = Arc::new([1, 2, 3, 4, 5]);
     let mut handles = Vec::new();
 
-    for _ in 0..10000 {
+    for _ in 0..2 {
         // 每次使用 Arc<T> 克隆一个新的引用, 引用计数 +1 
         // 走出作用域时, 引用计数 -1
         let local_data = data.clone();
