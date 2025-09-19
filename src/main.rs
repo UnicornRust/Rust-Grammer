@@ -1,16 +1,15 @@
 // 引入需要使用的模块信息
 use rs_grammer::{
-    advance, blog, branch, closures, command, eventloop, function, generic, handlerr, intellpoint, iofs, ipc, iterator, loops, ownership, pattern, thread, unsafecode, variable
+    advance, blog, branch, closures, command, eventloop, function, generic, handlerr, intellpoint,
+    iofs, ipc, iterator, loops, ownership, pattern, thread, unsafecode, variable,
 };
 
 fn main() {
-
-    // thread::run();
-    unsafecode::run();
+    thread::run();
+    // unsafecode::run();
 }
 
 fn premain() {
-
     // 测试 ipc 通信
     ipc::run();
 
@@ -28,7 +27,7 @@ fn premain() {
 
     // 测试程序循环结构
     branch::run();
-    
+
     // 测试 io 流
     iofs::run();
 

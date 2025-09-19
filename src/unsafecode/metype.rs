@@ -33,7 +33,7 @@ impl MySelfRefEngine {
         });
 
         let map_ptr: *const HashMap<String, String> = &engine.map;
-        engine.translator.map = map_ptr;
+        // engine.translator.map = map_ptr;
         return engine;
     }
     fn translate(&self, text: &str) -> &str {

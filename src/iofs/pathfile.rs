@@ -101,7 +101,7 @@ fn file_create() {
         Err(error) => match error.kind() {
             ErrorKind::NotFound => match File::create("temp/rand.txt") {
                 Ok(fc) => fc,
-                Err(_e) => panic!("Can't create file: {:?}", error),
+                Err(_e) => panic!("Can't create file: {:?}", _e),
             },
             _ther_error => panic!("Problem opening file: {:?}", error),
         },
