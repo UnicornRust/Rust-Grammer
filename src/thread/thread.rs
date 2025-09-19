@@ -9,29 +9,31 @@ struct Person {
 pub fn run() {
     create_thread();
     scope_thread();
-    chunk_sum();
+    chunck_sum();
 }
+
 
 // 线程创建的方法啊
 fn create_thread() {
+
     let person = Person {
-        id: 1,
-        name: String::from("hello"),
+        id : 1, 
+        name : String::from("hello"),
     };
+
     // 传递一个闭包作为需要执行的任务, 得到一个 JoinHandle 作为线程的句柄
     // 如果想要持有外部作用域的变量， 需要使用 move 关键字(线程执行的时机是不确定的，因此需要获取到所有权)
     let handle = thread::spawn(move || {
-        println!(
-            "this is {} to run code, no: {:?}",
-            thread::current().name().unwrap_or("default"),
+        println!( "this is {} to run code, no: {:?}",
+            thread::current().name().unwrap_or_default(), 
             person
         )
     });
+
     // 需要等待线程执行完毕, 主线程可能执行完成之后整个程序的生命周期结束
     // 这里需要保证开启的后台线程执行完成再结束 main 线程
     handle.join().unwrap();
 }
-
 //
 // 作用域线程中的两个生命周期
 //
@@ -64,7 +66,7 @@ fn scope_thread() {
     });
 }
 
-fn chunk_sum() {
+fn chunck_sum() {
     const CHUCK_ZISE: usize = 10;
     let numbers: Vec<u32> = (1..10000).collect();
     let chunks = numbers.chunks(CHUCK_ZISE);

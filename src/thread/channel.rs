@@ -1,8 +1,8 @@
 use std::{sync::mpsc, thread, time::Duration};
 
 pub fn run(){
-    channel();
-    iter_recv();
+    // channel();
+    // iter_recv();
     use_mpsc();
 }
 
@@ -48,7 +48,7 @@ fn use_mpsc(){
 
     // 这里我们的接收者不再显式调用 recv 函数，而是将 rx 当作一个迭代器，
     // 对于每一个一个接收到的值, 我们将其打印出来.
-    // 当信道被关闭时，迭代气也将结束。
+    // 当信道被关闭时，迭代器也将结束。
     for received in rx {
         println!("Got: {received}");
     }
@@ -103,9 +103,9 @@ fn channel() {
         tx.send(val).unwrap();
     });
 
-    // 接收者游两个方法可以接收对应的数据
+    // 接收者有两个方法可以接收对应的数据
     // recv: 阻塞接受者线程，直到有一个数据,
-    //    - 数据以Result<T, E> 形式返回
+    //    - 数据Result<T, E> 形式返回
     //    - 当信道关闭接收到一个错误表示不会有新值到来.
     // try_recv: 不会阻塞当前接收者线程，直接返回，
     //    - 当有数据时 Ok 值包含可用的信息，
