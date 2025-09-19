@@ -2,7 +2,7 @@
 // 使用多种方式来完成 0 .. 1000000000 累加的计算
 //
 
-use std::{any, sync::{mpsc, Arc, Mutex}, thread, time::Instant};
+use std::{any, sync::{mpsc, Arc, Mutex }, thread, time::Instant};
 
 const TOTAL: u64 = 1_000_000_000;
 
