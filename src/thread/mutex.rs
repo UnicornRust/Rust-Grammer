@@ -3,9 +3,24 @@ use std::{
     thread,
 };
 
+use libc::personality;
+
+
+// mutex 是  mutunal exclusive 互斥器原语(primitive)
+//  - lock   可以加锁的的状态 
+//  - locked 已经加锁的状态
+//  - poisoned (中毒的) 由某一个访问锁的线程panic 导致
+//    > 调用 lock/ try_lock 会返回一个 Result<T, PoisonError<T>>
+//      用于指示该互斥锁是否中毒，
+//    > 中毒的 Mutex 不会阻止对底层数据的访问，而是提供了一个 into_inner()
+//      方法来消耗掉这个互斥锁，可以返回原本在加锁时的守卫对象，可以通过
+//      这个守卫对象来访问互斥锁中的数据
+
+
 pub fn run() {
-    mutex_api();
-    multiple_thread_with_mutex();
+    // mutex_api();
+    // multiple_thread_with_mutex();
+    poisoned_mutex();
 }
 
 // 从单线程上下文认识互斥器
@@ -57,4 +72,41 @@ fn multiple_thread_with_mutex() {
     }
     // 等到所有新建的线程运行结束，主线程答应结果.
     println!("Result: {}", *counter.lock().unwrap());
+}
+
+
+// mutex poisoned
+
+fn poisoned_mutex() {
+
+    let data = Arc::new(Mutex::new(10));
+    {
+        // 触发异常
+        let data = Arc::clone(&data);
+        thread::spawn(move||{ 
+            let mut num = data.lock().unwrap();
+            *num += 1;
+            panic!("error to handle");
+            // unwrap_err() 已经预知了发生的错误并进行了处理恢复
+        }).join().unwrap_err();
+    }
+    // 另一个线程尝试获取锁进行操作的时候会得到poisoned错误, 并且可以此线程中进行恢复
+    {
+        let data = Arc::clone(&data);
+        thread::spawn(move|| {
+            match data.lock() {
+                Ok(mut guard) => {
+                    println!("Thread Ok: {guard}",);
+                    *guard += 10;
+                },
+                Err(poisoned) => {
+                    println!("Thread Poisoned: {poisoned} ");
+                    // 从错误中可以恢复 guard 并继续使用
+                    let mut guard = poisoned.into_inner();
+                    *guard += 100;
+                    println!("Thread new Value: {}", *guard);
+                }
+            }
+        }).join().unwrap();
+    }
 }

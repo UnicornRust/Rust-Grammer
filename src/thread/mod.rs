@@ -8,10 +8,10 @@ pub mod samples;
 
 pub fn run() {
     // thread::run();
-    //  channel::run();
-    // mutex::run();
+    // channel::run();
+    mutex::run();
     // atomic::run();
     // builder::run();
-    share_data::share();
+    // share_data::share();
     // samples::run_examples();
 }
