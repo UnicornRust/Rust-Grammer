@@ -1,5 +1,7 @@
 
-// 使用原子类型共享数据
+// 
+// Atomic Type , 提供线程之间原始的共享内存通信机制，
+// 是其他并发类型的基础构件
 //
 
 use std::{ sync::{atomic::{compiler_fence, AtomicBool, Ordering}, Arc}, thread, time::Duration};

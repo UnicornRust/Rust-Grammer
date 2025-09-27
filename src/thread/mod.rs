@@ -5,13 +5,15 @@ pub mod mutex;
 pub mod thread;
 pub mod share_data;
 pub mod samples;
+pub mod rwlock;
 
 pub fn run() {
     // thread::run();
     // channel::run();
-    mutex::run();
+    // mutex::run();
     // atomic::run();
     // builder::run();
     // share_data::share();
     // samples::run_examples();
+    rwlock::run();
 }
