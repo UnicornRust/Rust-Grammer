@@ -36,16 +36,27 @@ impl Message for MockMessage {
         // 借用可变
         self.sent_messages.borrow_mut().push(msg.to_string());
     }
-    
 }
-pub fn refcell() {
+    
+pub fn run() {
     api();
+    tracer();
+}
+
+fn tracer() {
+
     let mock_message = MockMessage {
         sent_messages: RefCell::new(vec![]),
     };
     let mut limit_tracker = LimitTracker::new(&mock_message, 100);
     limit_tracker.set_value(80);
-    println!("{:?}", mock_message.sent_messages.borrow().len());
+
+    // 此处使用 into_inner 消耗掉 RefCell，后续不可继续使用
+    let message = mock_message.sent_messages.into_inner();
+    for m in message {
+        println!("message: {m}");
+    }
+    // println!("{:?}", mock_message.sent_messages.borrow().len());
 }
 
 fn api() {

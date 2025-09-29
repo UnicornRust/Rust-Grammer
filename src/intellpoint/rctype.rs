@@ -23,9 +23,12 @@ fn rc_type() {
 }
 
 fn rc_type_refer_check() {
+
     // 我们可以使用 Rc::strong_count(&a) 来观测数据的引用计数的变化
     let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
     println!("count after create a = {}", Rc::strong_count(&a));
+
+
     let _b = Cons(3, Rc::clone(&a));
 
     println!("count agter create b = {}", Rc::strong_count(&a));

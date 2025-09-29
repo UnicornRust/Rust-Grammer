@@ -1,10 +1,9 @@
-use std::{ptr, thread, time::Duration};
+use std::{ptr, sync::Arc, thread, time::Duration};
 
 use libc::{shmat, shmctl, shmget, IPC_CREAT, IPC_RMID};
 
 const SHM_SIZE: usize = 1024;
 
-/* 
 pub fn usage_shmem() {
     let key = 1234;
 
@@ -20,12 +19,13 @@ pub fn usage_shmem() {
     if shm == ptr::null_mut() {
         panic!("shmat failed");
     }
+    let shm_ptr = ShardMemoryPtr(shm);
 
     let handle = thread::spawn( move || {
         thread::sleep(Duration::from_secs(1));
         unsafe {
             let data = b"Hello from writer";
-            ptr::copy_nonoverlapping(data.as_ptr(), shm, data.len());
+            ptr::copy_nonoverlapping(data.as_ptr(), shm_ptr.as_mut_ptr(), data.len());
         }
     });
 
@@ -40,4 +40,15 @@ pub fn usage_shmem() {
     handle.join().unwrap();
 }
 
-*/
+
+struct ShardMemoryPtr(*mut u8);
+
+unsafe impl Send for ShardMemoryPtr {}
+
+impl ShardMemoryPtr {
+    fn as_mut_ptr(&self) -> *mut u8 {
+        self.0
+    }
+}
+
+// 

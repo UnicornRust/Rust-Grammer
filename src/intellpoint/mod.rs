@@ -11,9 +11,10 @@ mod phantomData;
 
 pub fn run() {
 
-    boxtype::run();
-    rctype::run();
-    rc_refcell::run();
-    cell::cell_run();
-    cycle_ref::cycle()
+     boxtype::run();
+    // rctype::run();
+    // rc_refcell::run();
+    // cell::cell_run();
+    // refcell::run();
+    // cycle_ref::cycle()
 }

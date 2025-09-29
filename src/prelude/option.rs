@@ -1,7 +1,6 @@
 
 pub fn run() {
-
-
+    declare();
 }
 
 // 1. 预导入模块 core::options::Option<T>

@@ -61,4 +61,9 @@ fn api() {
     cell.set(String::from("world"));
     assert_eq!(cell.take(), "world");
 
+    let cell = Cell::new(String::from("mifo"));
+    // set 一个新值，丢弃旧值, set 没有返回值，默认为 ()
+    // let x =  cell.set(String::from("peek"));
+    cell.set(String::from("peek"));
+    assert_eq!(cell.take(), "peek");
 }

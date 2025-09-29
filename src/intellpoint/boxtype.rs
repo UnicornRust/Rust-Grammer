@@ -19,9 +19,6 @@ pub fn run() {
 
     // 函数方法的隐式 Deref 强制转换
     type_deref_coercions();
-
-    // 测试 Drop trait 执行的时机
-    drop_trait_occasion();
 }
 
 
@@ -42,7 +39,7 @@ fn use_intellij_point_as_reference() {
     // 变量 x 存放了一个 i32 值 5，y 等于 x 的一个引用，可以断言 x 等于 5
     // 然而，如果希望对 y 的值做出断言，必须使用 *y 来追踪引用指向的值(解引用)
     // 这样编译器就可以比较实际的值了, 一旦解引用了 y, 就可以访问 y 所指向的整型值
-    // 并与 5 做比较J
+    // 并与 5 做比较
     let x = 5;
     let y = &x;
     assert_eq!(5, x);
@@ -51,7 +48,7 @@ fn use_intellij_point_as_reference() {
     // 像使用引用一样使用 Box<T>
     // 在当前的代码中，在 Box<T> 上使用解引用运算符
     // 与在 y 引用上使用解引用运算符具有一样的功能
-    // 不同的是：这里 z 设置为一个指向 x 值拷贝的 Box<T> 实例。而不是指向 x 值得引用
+    // 不同的是：这里 z 设置为一个指向 x 值拷贝的 Box<T> 实例。而不是指向 x 值的引用
     let z = Box::new(x);
     assert_eq!(5, *z);
 
@@ -74,7 +71,7 @@ impl<T> MyBox<T> {
     }
 }
 
-// 为了实现 *运算符在我们自定义的类型上具有解引用的功能呢个，我们需要实现 Deref trait
+// 为了实现 *运算符在我们自定义的类型上具有解引用的功能，我们需要实现 Deref trait
 // Deref trait 将类型像引用一样处理
 impl<T> Deref for MyBox<T> {
     type Target = T;
@@ -90,15 +87,13 @@ impl<T> Drop for MyBox<T> {
     }
 }
 
-fn hello(name: &str) {
-  println!("hello, {name}!");
-}
-
 // 函数方法的隐式 Deref 强制转换
 fn type_deref_coercions(){
 
+  // let m = Box::new(String::from("mifo"));
   let m = MyBox::new(String::from("rust"));
-  // 使用 &m 获取到MyBox<String> 值得引用，由于MyBox<T> 实现了 Deref trait
+   
+  // 使用 &m 获取到MyBox<String> 值的引用，由于MyBox<T> 实现了 Deref trait
   // Rust 可以通过 deref 将 MyBox<String> 转换为 &String
   // 标准库中提供了 String 上的 Deref 实现，其会返回字符串切片, 就是引用, 
   // Rust 再次调用 String 的 deref 将 &String 变为 &str
@@ -110,24 +105,6 @@ fn type_deref_coercions(){
   // hello(&(*m)[..]);
 }
 
-struct CustomSmartPoint {
-    data: String,
-}
-
-// Drop trait 执行的时机
-// 修改 drop 实现，直接打印数据，查看对应的 drop trait 在什么时候会执行
-impl Drop for CustomSmartPoint {
-    fn drop(&mut self) {
-        println!("Dropping CustomSmartPoint with data `{}`!", self.data);
-    }
-}
-
-fn drop_trait_occasion() {
-    let _c = CustomSmartPoint {
-        data: String::from("my staff"),
-    };
-    let _d = CustomSmartPoint {
-        data: String::from("other staff"),
-    };
-    println!("CustomSmartPoint created!");
+fn hello(name: &str) {
+  println!("hello, {name}!");
 }

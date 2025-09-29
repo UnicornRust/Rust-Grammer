@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 libc = "0.2.109"
+nix = { version = "0.30.1", features = ["event", "socket", "fs", "user"] } # epoll
 regex = "1.10.5"
 log = "0.4"
 env_logger = { version = "0.11.3", default-features = false }
