@@ -5,10 +5,10 @@ use rs_grammer::{
 };
 
 fn main() {
-    // thread::run();
+     thread::run();
     // unsafecode::run();
     // intellpoint::run();
-    ipc::run();
+    // ipc::run();
 }
 
 fn premain() {
