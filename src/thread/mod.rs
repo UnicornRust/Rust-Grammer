@@ -8,6 +8,9 @@ pub mod samples;
 pub mod rwlock;
 pub mod oncelock;
 pub mod oncell;
+pub mod lazy;
+pub mod park;
+pub mod condition;
 
 pub fn run() {
     // thread::run();
@@ -19,5 +22,9 @@ pub fn run() {
     // samples::run_examples();
     // rwlock::run();
     // oncell::run();
-    oncelock::run();
+    // oncelock::run();
+    // lazy::run();
+    // park::run()
+    condition::run();
+
 }
