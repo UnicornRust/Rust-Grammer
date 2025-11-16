@@ -25,7 +25,7 @@ fn api(){
         let mut started = lock.lock().unwrap();
         *started = true;
         // 通知一个阻塞当前变量的线程
-        thread::sleep(Duration::from_millis(1000));
+        thread::sleep(Duration::from_millis(2000));
         cvar.notify_one();
     });
 
@@ -33,9 +33,13 @@ fn api(){
     let mut started = lock.lock().unwrap();
 
     println!("listen： started: {}", *started);
+
     // 阻塞当前线程直到这个条件改变,
     // 此时获取到这个条件的值，然后退出循环
-    started = cvar.wait(started).unwrap();
+    //
+    // while !*started {
+        started = cvar.wait(started).unwrap();
+    // }
     println!("active: {}", *started);
 }
 

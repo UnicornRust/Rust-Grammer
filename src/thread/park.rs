@@ -9,7 +9,7 @@ use std::{sync::{atomic::{AtomicBool, Ordering}, Arc}, thread, time::Duration};
 // > 线程可以将自己挂起（park) 
 //     - 这会让线程进入休眠状态（阻塞）， 从而不再消耗 CPU 资源
 //     - 之后，另一个线程可以”唤醒“ 被挂起的线程 (unpark) 让它从休眠中醒来。
-// > 线程挂起 : std::thread::park()J
+// > 线程挂起 : std::thread::park()
 // > 唤醒线程 : 需要在表示目标线程的 Thread 对象上调用 unpark() 方法
 //
 // -----------------

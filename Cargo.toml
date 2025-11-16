@@ -14,3 +14,4 @@ env_logger = { version = "0.11.3", default-features = false }
 crossbeam = "0.8.4"
 strum = "0.26.3"
 strum_macros = "0.26.4"
+rayon = "1.11.0"
